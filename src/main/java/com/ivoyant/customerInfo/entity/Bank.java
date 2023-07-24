@@ -1,28 +1,28 @@
 package com.ivoyant.customerInfo.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
-/*@NoArgsConstructor
-@AllArgsConstructor*/
 @Entity
-@Builder
-@Table(name = "Banks")
-
+@Table(name = "Bank")
 public class Bank {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column
+    @JsonProperty("bankName")
     private String bankName;
-    @Column(nullable = false)
+    @Column
+    @JsonProperty("bankBranch")
     private String bankBranch;
-    @Column(nullable = false)
+    @Column @JsonProperty("bankAddress")
     private String bankAddress;
-    @Column(nullable = false)
-    private String IFSC;
-    @Column(nullable = false, unique = true)
+    @Column @JsonProperty("ifsc")
+    private String ifsc;
+    @Column @JsonProperty("custAccountNumber")
     private Long custAccountNumber;
 }

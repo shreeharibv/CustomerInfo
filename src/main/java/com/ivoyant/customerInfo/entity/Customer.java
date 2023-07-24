@@ -2,15 +2,13 @@ package com.ivoyant.customerInfo.entity;
 
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
-/*@NoArgsConstructor
-@AllArgsConstructor*/
 @Entity
-@Builder
-@Table(name = "Customers")
+@Table(name = "Customer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

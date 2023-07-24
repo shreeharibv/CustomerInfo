@@ -1,17 +1,27 @@
 package com.ivoyant.customerInfo.service;
-import com.ivoyant.customerInfo.entity.Customer;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.List;
-public interface CustomerService {
-    Customer createCustomer(Customer customer);
-    Customer getCustomerById(Long CustomerId);
-    List<Customer> getAllCustomers();
-    Customer updateCustomer(Customer customer);
-    double getBalance(Long  AccountNumber);
-    void deleteCustomer(Long customerId);
-    void depositAmount(Long AccountNumber, double amount);
-    void withdrawAmount(Long AccountNumber, double amount);
-    void transferAmount(Long sourceAcctNumber, Long destAcctNumber,double amount);
-     double getBalanceByPhoneNumber(Long phoneNumber);
+import com.ivoyant.customerInfo.entity.Customer;
+import com.ivoyant.customerInfo.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CustomerService {
+
+    @Autowired
+    CustomerRepository customerRepository;
+
+    public void createCustomer(Customer customer) {
+        try {
+            customerRepository.save(customer);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void getCustomerById(Long customerId) {
+        customerRepository.getById(customerId);
+    }
 }
