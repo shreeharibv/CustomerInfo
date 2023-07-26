@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/Customers/")
 public class CustomerController {
@@ -15,7 +17,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
        customerService.createCustomer(customer);
         return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
@@ -25,34 +27,32 @@ public class CustomerController {
          customerService.getCustomerById(customerId);
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
-//    @GetMapping("allCustomers")
-//    public ResponseEntity<List<Customer>> getAllCustomers() {
-//        List<Customer> customers = customerService.getAllCustomers();
-//        return new ResponseEntity<>(customers, HttpStatus.OK);
-//    }
-//    //update Customers phone Number
-//
-//    @PutMapping("updateCustomer/{phoneNumber}")
-//    public ResponseEntity<Customer> updateCustomer(@PathVariable("phoneNumber") Long phoneNumber,
-//                                                   @RequestBody Customer customer) {
-//       customer.setPhoneNumber(phoneNumber);
-//        Customer updatedCustomer= customerService.updateCustomer(customer);
-//        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
-//    }
-//    //update customer's Address
-//    @PutMapping("updateCustomer/{customerAddress}")
-//    public ResponseEntity<Customer> updateCustomer(@PathVariable("customerAddress") String customerAddress,
-//                                                   @RequestBody Customer customer) {
-//        customer.setCustomerAddress(customerAddress);
-//        Customer updatedCustomer= customerService.updateCustomer(customer);
-//        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
-//    }
-//    @DeleteMapping("/deleteCustomer/{id}")
-//    public ResponseEntity<String> deleteCustomer(@PathVariable("id") Long customerId) {
-//        customerService.deleteCustomer(customerId);
-//        return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
-//    }
-//
+   @GetMapping("allCustomers")
+   public ResponseEntity<?> getAllCustomers() {
+        customerService.getAllCustomers();
+        return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
+   }
+   //update Customers phone Number
+
+  @PutMapping("updateCustomer/{phoneNumber}/{customerID}")
+  public ResponseEntity<String> updateCustomer(@PathVariable("phoneNumber") Long phoneNumber,
+                                                 @PathVariable("customerID")Long customerID) {
+        customerService.updateCustomer(phoneNumber,customerID);
+       return new ResponseEntity<>("Success", HttpStatus.OK);
+   }
+    //update customer's Address
+    @PutMapping("updateCustomerAddress/{id}/{customerAddress}")
+    public ResponseEntity<String> updateCustomerAddress(@PathVariable("id")Long id,@PathVariable("customerAddress") String customerAddress) {
+        customerService.updateCustomerAddress(id,customerAddress);
+        return new ResponseEntity<>("Success", HttpStatus.OK);
+    }
+    @DeleteMapping("deleteCustomer/{id}")
+    public ResponseEntity<String> deleteCustomer(@PathVariable("id") Long customerId) {
+        customerService.deleteCustomer(customerId);
+        return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
+    }
+
+
 //    // checkBalance
 //    @GetMapping("{acctNumber}/balance")
 //    public double getBalance(@PathVariable Long acctNumber) {
