@@ -1,7 +1,9 @@
 package com.ivoyant.customerInfo.controller;
 
 import com.ivoyant.customerInfo.entity.Customer;
+import com.ivoyant.customerInfo.entity.Offers;
 import com.ivoyant.customerInfo.service.CustomerService;
+import com.ivoyant.customerInfo.service.OffersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+    @Autowired
+    private OffersService offersService;
 
     @PostMapping("/create")
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
@@ -51,27 +55,30 @@ public class CustomerController {
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
     }
+    @GetMapping("getAllOffers/{id}")
+    public ResponseEntity<List<Offers>> getOffersByLocation(@PathVariable("id")int customerId) {
+        String bankName = customerService.getBankNameOfCustomer(customerId);
+        List<Offers> offers = offersService.getOffersByName(bankName);
+        return new ResponseEntity<>(offers, HttpStatus.OK);
+    }
 
 
-//    // checkBalance
-//    @GetMapping("{acctNumber}/balance")
-//    public double getBalance(@PathVariable Long acctNumber) {
-//        return customerService.getBalance(acctNumber).getAmount();
-//    }
-//    // checkBalance
-//    @GetMapping("{phoneNumber}/balance")
-//    public double getBalanceByPhoneNumber(@PathVariable Long phoneNumber) {
-//        return customerService.getBalanceByPhoneNumber(phoneNumber);
-//    }
-//    //deposit amount
-//    @PutMapping("{acctNumber}/deposit/{amount}")
-//    public void depositAmount(@PathVariable Long acctNumber, @PathVariable double amount) {
-//        double initBal = getBalance(acctNumber);
-//        customerService.depositAmount(acctNumber, amount);
-//        Logger logger = new Logger(acctNumber, "Deposited", "Success", initBal, initBal + amount);
-//        LoggerController.addLog(logger);
-//
-//    }
+   // checkBalance
+   @GetMapping("{acctNumber}/balance")
+   public double getBalance(@PathVariable Long acctNumber) {
+      return customerService.getBalance(acctNumber);
+   }
+// checkBalance
+    @GetMapping("{phoneNumber}/balance")
+    public double getBalanceByPhoneNumber(@PathVariable Long phoneNumber) {
+        return customerService.getBalanceByPhoneNumber(phoneNumber);
+   }
+   /* //deposit amount
+    @PutMapping("{acctNumber}/deposit/{amount}")
+   public void depositAmount(@PathVariable Long acctNumber, @PathVariable double amount) {
+       double initBal = getBalance(acctNumber);
+       customerService.depositAmount(acctNumber, amount);
+   }*/
 //    // withdrawAmount
 //    @PutMapping("{acctNumber}/withdraw/{amount}")
 //    public void withdrawAmount(@PathVariable Long acctNumber, @PathVariable double amount) {

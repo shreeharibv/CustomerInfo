@@ -64,4 +64,30 @@ public class CustomerService {
             e.printStackTrace();
         }
     }
+    public String getBankNameOfCustomer( int customerId){
+        try {
+           return customerRepository.getBankNameOfCustomer(customerId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+    public double getBalance( Long acctNumber){
+        try {
+            return  customerRepository.getBalance(acctNumber);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    public  double getBalanceByPhoneNumber(Long phoneNumber){
+        try {
+            return  customerRepository.getBalanceByPhoneNumber(phoneNumber);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+
+    }
 }
