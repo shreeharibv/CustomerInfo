@@ -22,57 +22,62 @@ public class CustomerController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
-       customerService.createCustomer(customer);
+        customerService.createCustomer(customer);
         return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
 
     @GetMapping("getCustomer/{id}")
     public ResponseEntity<String> getCustomerById(@PathVariable("id") Long customerId) {
-         customerService.getCustomerById(customerId);
+        customerService.getCustomerById(customerId);
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
-   @GetMapping("allCustomers")
-   public ResponseEntity<?> getAllCustomers() {
+
+    @GetMapping("allCustomers")
+    public ResponseEntity<?> getAllCustomers() {
         customerService.getAllCustomers();
         return new ResponseEntity<>(customerService.getAllCustomers(), HttpStatus.OK);
-   }
-   //update Customers phone Number
+    }
+    //update Customers phone Number
 
-  @PutMapping("updateCustomer/{phoneNumber}/{customerID}")
-  public ResponseEntity<String> updateCustomer(@PathVariable("phoneNumber") Long phoneNumber,
-                                                 @PathVariable("customerID")Long customerID) {
-        customerService.updateCustomer(phoneNumber,customerID);
-       return new ResponseEntity<>("Success", HttpStatus.OK);
-   }
-    //update customer's Address
-    @PutMapping("updateCustomerAddress/{id}/{customerAddress}")
-    public ResponseEntity<String> updateCustomerAddress(@PathVariable("id")Long id,@PathVariable("customerAddress") String customerAddress) {
-        customerService.updateCustomerAddress(id,customerAddress);
+    @PutMapping("updateCustomer/{phoneNumber}/{customerID}")
+    public ResponseEntity<String> updateCustomer(@PathVariable("phoneNumber") Long phoneNumber,
+                                                 @PathVariable("customerID") Long customerID) {
+        customerService.updateCustomer(phoneNumber, customerID);
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
+
+    //update customer's Address
+    @PutMapping("updateCustomerAddress/{id}/{customerAddress}")
+    public ResponseEntity<String> updateCustomerAddress(@PathVariable("id") Long id, @PathVariable("customerAddress") String customerAddress) {
+        customerService.updateCustomerAddress(id, customerAddress);
+        return new ResponseEntity<>("Success", HttpStatus.OK);
+    }
+
     @DeleteMapping("deleteCustomer/{id}")
     public ResponseEntity<String> deleteCustomer(@PathVariable("id") Long customerId) {
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>("User successfully deleted!", HttpStatus.OK);
     }
+
     @GetMapping("getAllOffers/{id}")
-    public ResponseEntity<List<Offers>> getOffersByLocation(@PathVariable("id")int customerId) {
+    public ResponseEntity<List<Offers>> getOffersByLocation(@PathVariable("id") int customerId) {
         String bankName = customerService.getBankNameOfCustomer(customerId);
         List<Offers> offers = offersService.getOffersByName(bankName);
         return new ResponseEntity<>(offers, HttpStatus.OK);
     }
 
 
-   // checkBalance
-   @GetMapping("{acctNumber}/balance")
-   public double getBalance(@PathVariable Long acctNumber) {
-      return customerService.getBalance(acctNumber);
-   }
-// checkBalance
-    @GetMapping("{phoneNumber}/balance")
+    // checkBalance
+    @GetMapping("{acctNumber}/balance")
+    public double getBalance(@PathVariable Long acctNumber) {
+        return customerService.getBalance(acctNumber);
+    }
+
+    // checkBalance
+    @GetMapping("{phoneNumber}/balanceByPhoneNumber")
     public double getBalanceByPhoneNumber(@PathVariable Long phoneNumber) {
         return customerService.getBalanceByPhoneNumber(phoneNumber);
-   }
+    }
    /* //deposit amount
     @PutMapping("{acctNumber}/deposit/{amount}")
    public void depositAmount(@PathVariable Long acctNumber, @PathVariable double amount) {
@@ -96,9 +101,6 @@ public class CustomerController {
 //        Logger loggerSender = new Logger(sourceAcctNumber, "Transferred", "Success", initBalSender, initBalSender - amount);
 //
 //    }
-
-
-
 
 
 }

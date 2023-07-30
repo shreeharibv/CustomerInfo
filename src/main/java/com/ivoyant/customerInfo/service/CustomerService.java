@@ -16,7 +16,7 @@ public class CustomerService {
     public Customer createCustomer(Customer customer) {
         try {
             return customerRepository.save(customer);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -27,64 +27,68 @@ public class CustomerService {
     public void getCustomerById(Long customerId) {
         try {
             customerRepository.getById(customerId);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public List<Customer> getAllCustomers() {
         try {
-           return customerRepository.findAll();
-        }catch (Exception e){
+            return customerRepository.findAll();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
 
-    public void  updateCustomer(Long phoneNumber,Long customerID) {
+    public void updateCustomer(Long phoneNumber, Long customerID) {
         try {
-             customerRepository.updateCustomerByPhoneNumber(phoneNumber,customerID);
-        }catch (Exception e){
+            customerRepository.updateCustomerByPhoneNumber(phoneNumber, customerID);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     //
-    public void  updateCustomerAddress(Long id,String customerAddress) {
+    public void updateCustomerAddress(Long id, String customerAddress) {
         try {
-            customerRepository.updateCustomerByAddress(id,customerAddress);
-        }catch (Exception e){
+            customerRepository.updateCustomerByAddress(id, customerAddress);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void deleteCustomer(Long customerId) {
-        try{
+        try {
             customerRepository.deleteById(customerId);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public String getBankNameOfCustomer( int customerId){
+
+    public String getBankNameOfCustomer(int customerId) {
         try {
-           return customerRepository.getBankNameOfCustomer(customerId);
-        }catch (Exception e){
+            return customerRepository.getBankNameOfCustomer(customerId);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
 
     }
-    public double getBalance( Long acctNumber){
+
+    public double getBalance(Long acctNumber) {
         try {
-            return  customerRepository.getBalance(acctNumber);
-        }catch (Exception e){
+            return customerRepository.getBalance(acctNumber);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;
     }
-    public  double getBalanceByPhoneNumber(Long phoneNumber){
+
+    public double getBalanceByPhoneNumber(Long phoneNumber) {
         try {
-            return  customerRepository.getBalanceByPhoneNumber(phoneNumber);
-        }catch (Exception e){
+            return customerRepository.getBalanceByPhoneNumber(phoneNumber);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;

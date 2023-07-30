@@ -11,10 +11,11 @@ import java.util.List;
 public class OffersService {
     @Autowired
     OffersRepository offersRepository;
+
     public void createOffers(Offers offers) {
         try {
             offersRepository.save(offers);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -24,14 +25,15 @@ public class OffersService {
     public void deleteOffers(Long offerId) {
         try {
             offersRepository.deleteById(offerId);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    public List<Offers> getOffersByName(String bankName){
+
+    public List<Offers> getOffersByName(String bankName) {
         try {
-           return offersRepository.getOffersByName(bankName);
-        }catch (Exception e){
+            return offersRepository.getOffersByName(bankName);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

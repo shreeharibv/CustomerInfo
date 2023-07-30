@@ -16,9 +16,9 @@ public class BankService {
     public void createBank(Bank bank) {
         try {
             bankRepository.save(bank);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            }
+        }
 
     }
 

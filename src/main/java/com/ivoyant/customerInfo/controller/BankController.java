@@ -1,4 +1,5 @@
 package com.ivoyant.customerInfo.controller;
+
 import com.ivoyant.customerInfo.entity.Bank;
 import com.ivoyant.customerInfo.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,15 @@ public class BankController {
         bankService.createBank(bank);
         return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
+
     @GetMapping("allBanks")
     public List<Bank> getAllBanks() {
         return bankService.getAllBanks();
     }
+
     @GetMapping("getBanks/{bankAddress}")
     public ResponseEntity<List<Bank>> getBanksBy(@PathVariable("bankAddress") String bankAddress) {
-       List<Bank> banks = bankService.getBanksByBankaddress(bankAddress);
-        return new ResponseEntity<>(banks,HttpStatus.OK);
+        List<Bank> banks = bankService.getBanksByBankaddress(bankAddress);
+        return new ResponseEntity<>(banks, HttpStatus.OK);
     }
 }

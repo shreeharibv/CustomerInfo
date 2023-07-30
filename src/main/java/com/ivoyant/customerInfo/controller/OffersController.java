@@ -14,19 +14,22 @@ import java.util.List;
 public class OffersController {
     @Autowired
     OffersService offersService;
+
     @PostMapping("create")
     public ResponseEntity<String> createOffers(@RequestBody Offers offers) {
         offersService.createOffers(offers);
         return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
+
     @DeleteMapping("deleteOffer/{id}")
     public ResponseEntity<String> deleteOffers(@PathVariable("id") Long offerId) {
         offersService.deleteOffers(offerId);
         return new ResponseEntity<>("Offer successfully deleted!", HttpStatus.OK);
     }
+
     @GetMapping("getAllOffers/{bankName}")
-    public ResponseEntity<List<Offers>> getOffersByLocation(@PathVariable("bankName")String bankName){
-       List<Offers> offers= offersService.getOffersByName(bankName);
-        return new ResponseEntity<>(offers,HttpStatus.OK);
+    public ResponseEntity<List<Offers>> getOffersByLocation(@PathVariable("bankName") String bankName) {
+        List<Offers> offers = offersService.getOffersByName(bankName);
+        return new ResponseEntity<>(offers, HttpStatus.OK);
     }
 }
