@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.management.relation.Role;
+import java.util.Set;
+
 @Getter
 @Setter
 /*@NoArgsConstructor
@@ -24,4 +27,9 @@ public class Offers {
     private int offerValidity;
     @Column(nullable = false)
     private String bankName;
+    @JoinTable(name = "OffersById",joinColumns = @JoinColumn(name= "offer_id",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "bank_name", referencedColumnName = "bank_name"))
+    private Set<Role> bankset;
+
+
 }
