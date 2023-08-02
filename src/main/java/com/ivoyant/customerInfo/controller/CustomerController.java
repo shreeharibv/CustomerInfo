@@ -66,7 +66,6 @@ public class CustomerController {
         return new ResponseEntity<>(offers, HttpStatus.OK);
     }
 
-
     // checkBalance
     @GetMapping("{acctNumber}/balance")
     public double getBalance(@PathVariable Long acctNumber) {
@@ -78,28 +77,31 @@ public class CustomerController {
     public double getBalanceByPhoneNumber(@PathVariable Long phoneNumber) {
         return customerService.getBalanceByPhoneNumber(phoneNumber);
     }
+
     //deposit amount
     @PutMapping("{acctNumber}/deposit/{amount}")
-   public void depositAmount(@PathVariable Long acctNumber, @PathVariable double amount) {
-       double initBal = getBalance(acctNumber);
-       double finalBal= initBal+amount;
-       customerService.depositAmount(acctNumber,finalBal);
-   }
-   // withdrawAmount
+    public void depositAmount(@PathVariable Long acctNumber, @PathVariable double amount) {
+        double initBal = getBalance(acctNumber);
+        double finalBal = initBal + amount;
+        customerService.depositAmount(acctNumber, finalBal);
+    }
+
+    // withdrawAmount
     @PutMapping("{acctNumber}/withdraw/{amount}")
     public void withdrawAmount(@PathVariable Long acctNumber, @PathVariable double amount) {
         double initBal = getBalance(acctNumber);
-        double finalBal= initBal-amount;
-        customerService.depositAmount(acctNumber,finalBal);
+        double finalBal = initBal - amount;
+        customerService.depositAmount(acctNumber, finalBal);
     }
+
     // transferAmount
     @PutMapping("{sourceAcctNumber}/transfer/{destAcctNumber}/{amount}")
     public void transferAmount(@PathVariable Long sourceAcctNumber, @PathVariable Long destAcctNumber, @PathVariable double amount) {
-       double initBalSender = getBalance(sourceAcctNumber);
-       double finalBalanceOfSender=initBalSender-amount;
-        customerService.depositAmount(sourceAcctNumber,finalBalanceOfSender);
+        double initBalSender = getBalance(sourceAcctNumber);
+        double finalBalanceOfSender = initBalSender - amount;
+        customerService.depositAmount(sourceAcctNumber, finalBalanceOfSender);
         double initBalReceiver = getBalance(destAcctNumber);
-        double finalBalanceOfReciever=initBalReceiver+amount;
-        customerService.depositAmount(destAcctNumber,finalBalanceOfReciever);
+        double finalBalanceOfReciever = initBalReceiver + amount;
+        customerService.depositAmount(destAcctNumber, finalBalanceOfReciever);
     }
 }
