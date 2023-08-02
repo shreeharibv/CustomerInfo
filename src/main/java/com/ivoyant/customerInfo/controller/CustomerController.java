@@ -78,29 +78,28 @@ public class CustomerController {
     public double getBalanceByPhoneNumber(@PathVariable Long phoneNumber) {
         return customerService.getBalanceByPhoneNumber(phoneNumber);
     }
-   /* //deposit amount
+    //deposit amount
     @PutMapping("{acctNumber}/deposit/{amount}")
    public void depositAmount(@PathVariable Long acctNumber, @PathVariable double amount) {
        double initBal = getBalance(acctNumber);
-       customerService.depositAmount(acctNumber, amount);
-   }*/
-//    // withdrawAmount
-//    @PutMapping("{acctNumber}/withdraw/{amount}")
-//    public void withdrawAmount(@PathVariable Long acctNumber, @PathVariable double amount) {
-//        double initBal = getBalance(acctNumber);
-//        customerService.withdrawAmount(acctNumber, amount);
-//        Logger logger = new Logger(acctNumber, "Withdrawn", "Success", initBal, initBal - amount);
-//        LoggerController.addLog(logger);
-//    }
-//    // transferAmount
-//    @PutMapping("{sourceAcctNumber}/transfer/{destAcctNumber}/{amount}")
-//    public void transferAmount(@PathVariable Long sourceAcctNumber, @PathVariable Long destAcctNumber, @PathVariable double amount) {
-//        double initBalSender = getBalance(sourceAcctNumber);
-//        double initBalReceiver = getBalance(destAcctNumber);
-//        customerService.transferAmount(sourceAcctNumber, destAcctNumber, amount);
-//        Logger loggerSender = new Logger(sourceAcctNumber, "Transferred", "Success", initBalSender, initBalSender - amount);
-//
-//    }
-
-
+       double finalBal= initBal+amount;
+       customerService.depositAmount(acctNumber,finalBal);
+   }
+   // withdrawAmount
+    @PutMapping("{acctNumber}/withdraw/{amount}")
+    public void withdrawAmount(@PathVariable Long acctNumber, @PathVariable double amount) {
+        double initBal = getBalance(acctNumber);
+        double finalBal= initBal-amount;
+        customerService.depositAmount(acctNumber,finalBal);
+    }
+    // transferAmount
+    @PutMapping("{sourceAcctNumber}/transfer/{destAcctNumber}/{amount}")
+    public void transferAmount(@PathVariable Long sourceAcctNumber, @PathVariable Long destAcctNumber, @PathVariable double amount) {
+       double initBalSender = getBalance(sourceAcctNumber);
+       double finalBalanceOfSender=initBalSender-amount;
+        customerService.depositAmount(sourceAcctNumber,finalBalanceOfSender);
+        double initBalReceiver = getBalance(destAcctNumber);
+        double finalBalanceOfReciever=initBalReceiver+amount;
+        customerService.depositAmount(destAcctNumber,finalBalanceOfReciever);
+    }
 }

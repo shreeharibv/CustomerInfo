@@ -94,4 +94,12 @@ public class CustomerService {
         return 0;
 
     }
+
+    public void depositAmount(Long acctNumber, double finalBal) {
+        try{
+            customerRepository.depositAmount(acctNumber,finalBal);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

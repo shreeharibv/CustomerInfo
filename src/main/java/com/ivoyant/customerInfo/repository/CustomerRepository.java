@@ -28,4 +28,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     @Query(value = "SELECT amount FROM Customer WHERE phone_Number = :phoneNumber", nativeQuery = true)
     double getBalanceByPhoneNumber(@Param("phoneNumber") Long phoneNumber);
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE customer c SET c.amount  = :finalAmt WHERE c.account_Number = :acctNumber", nativeQuery = true)
+    void depositAmount(@Param("acctNumber") Long acctNumber, @Param("finalAmt") double finalBal);
 }
